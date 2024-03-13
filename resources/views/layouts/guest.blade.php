@@ -5,59 +5,69 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>@yield('page-title') | {{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Scripts -->
         @vite('resources/js/app.js')
     </head>
     <body>
+        
         <header>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container">
-                    <a class="navbar-brand" href="/">Template</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarText">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            @auth
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Link 2</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Link 3</a>
-                                </li>
-                            @else
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">Register</a>
-                                </li>
-                            @endauth
-                        </ul>
+            <div class="container">
+                
+                <nav>
+
+                    <ul>
+
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
 
                         @auth
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-
-                                <button type="submit" class="btn btn-outline-danger">
-                                    Log Out
-                                </button>
-                            </form>
+                            <li>
+                                <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                            </li>
+                        @else
+                            <li>
+                                <a href="{{ route('projects.index') }}">I nostri progetti</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('technologies.index') }}">Le nostre Tecnologie</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('types.index') }}">I nostri linguaggi</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('login') }}">Login</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('register') }}">Register</a>
+                            </li>
                         @endauth
-                    </div>
-                </div>
-            </nav>
+                        
+                    </ul>
+
+                    @auth
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <button type="submit" class="">
+                                Log Out
+                            </button>
+                        </form>
+                    @endauth
+                    
+                </nav>
+
+            </div>
         </header>
 
-        <main class="py-4">
-            <div class="container">
-                @yield('main-content')
-            </div>
-        </main>
+        <section id="guest">        
+                <main>
+                    
+                    @yield('main-content')
+                    
+                </main>
+        </section>
     </body>
 </html>
